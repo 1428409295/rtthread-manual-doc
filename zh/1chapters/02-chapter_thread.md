@@ -1040,8 +1040,10 @@ static rt_thread_t tid2 = RT_NULL;
 /* 线程1入口 */
 static void thread1_entry(void* parameter)
 {
+    rt_uint32_t no = (rt_uint32_t) parameter; /* 获得正确的入口参数 */
+    
     /* 低优先级线程1开始运行 */
-    rt_kprintf("thread1 startup%d\n");
+    rt_kprintf("thread%d startup\n", no);
 
     /* 挂起自身 */
     rt_kprintf("suspend thread self\n");
@@ -1073,7 +1075,7 @@ int rt_application_init(void)
     /* 创建线程1 */
     tid1 = rt_thread_create("t1",
         thread1_entry,      /* 线程入口是thread1_entry */
-        RT_NULL,            /* 入口参数是RT_NULL */
+        (void*)1,            /* 入口参数是1 */
         THREAD_STACK_SIZE, THREAD_PRIORITY, THREAD_TIMESLICE);
     if (tid1 != RT_NULL)
         rt_thread_startup(tid1);
