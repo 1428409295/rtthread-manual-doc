@@ -57,7 +57,7 @@
 ~~~{.c}
 /* 代码清单：关闭中断进行全局变量的访问 */
 #include <rtthread.h>
-
+#include <rthw.h>
 /* 同时访问的全局变量 */
 static rt_uint32_t cnt;
 void thread_entry(void* parameter)
@@ -536,7 +536,7 @@ RT_EOK
     /* 用户应用入口 */
     int rt_application_init()
     {
-        thread_static_init();
+        semaphore_static_init();
 
         return 0;
     }
@@ -724,7 +724,7 @@ no, array[get%MAXSEM]);
     }
 
     rt_kprintf("the consumer[%d] sum is %d \n ", no, sum);
-    rt_kprintf("the consumer[%d] exit!\n");
+    rt_kprintf("the consumer[%d] exit!\n", no);
 }
 
 int semaphore_producer_consumer_init()
