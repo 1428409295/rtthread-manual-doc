@@ -585,10 +585,16 @@ rt_free函数会把待释放的内存还回给堆管理器中。在调用这个�
 无
 
 动态内存堆使用 的例程如下所示：
-
 ~~~{.c}
+/*
+* 程序清单：动态内存堆例程
+*
+* 这个程序会创建一个线程
+* 该线程会动态分配20个内存块，分配成功之后打印内存块的地址
+*/
+#include <rtthread.h>
 /* 线程TCB和栈*/
-struct rt_thread_t thread1;
+struct rt_thread thread1;
 char thread1_stack[512];
 
 /* 线程入口*/
